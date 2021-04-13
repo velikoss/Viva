@@ -45,31 +45,30 @@ def check(x, y, list_xy):
 def rcords(x, y):
     rx, ry = randint(-1, 1), randint(-1, 1)
     nx, ny = x + rx, y + ry
-    if rx + ry == 0:
+    if (rx*rx) + (ry*ry) == 0:
         rx, ry = choices([1, -1], weights=[50, 50])[0], choices([1, -1], weights=[50, 50])[0]
         nx, ny = x + rx, y + ry
     if nx < 0:
-        nx = WIDTH // 10 - 1
+        nx = x + 1
     if nx > WIDTH // 10 - 1:
-        nx = 0
+        nx = x - 1
     if ny < 0:
-        ny = HEIGHT // 10 - 1
+        ny = y + 1
     if ny > HEIGHT // 10 - 1:
-        ny = 0
+        ny = y - 1
     return rx, ry, nx, ny
 
 
 def rmove(markedx, markedy, list_xy):
     for i in range(0, len(markedx)):
         x, y = markedx[i], markedy[i]
-        if check(x, y, list_xy) >= 8: break
         rx, ry, nx, ny = rcords(x, y)
         try:
             while list_xy[nx][ny] != 0:
                 rx, ry, nx, ny = rcords(x, y)
         except IndexError:
             print("Впоймал IndexError")
-        if nx < len(list_xy[x]) - 1 or ny < len(list_xy[x]) - 1:
+        if nx < len(list_xy[x]) - 1 and ny < len(list_xy[x]) - 1:
             list_xy[nx][ny] = list_xy[x][y]
             if nx != x or ny != y: list_xy[x][y] = 0
     return list_xy

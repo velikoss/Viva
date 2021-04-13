@@ -1,4 +1,4 @@
-# encodinng=utf-8
+# encoding=utf-8
 import os
 import time
 from random import *
@@ -9,7 +9,7 @@ print("Ширина и высота (Число клеток)")
 WIDTH = int(input()) * 10
 HEIGHT = int(input()) * 10
 FPS = 60
-TICK = 0.05  # ВРЕМЯ ОБНОВЛЕНИЯ ПОЛЯ (В СЕКУНДАХ)
+TICK = 0.1  # ВРЕМЯ ОБНОВЛЕНИЯ ПОЛЯ (В СЕКУНДАХ)
 
 # ВВОД КОЭФФИЦИЭНТОВ КЛЕТОК
 
