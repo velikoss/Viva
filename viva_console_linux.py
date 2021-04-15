@@ -26,8 +26,9 @@ def rcords(x, y):
     rx, ry = randint(-1, 1), randint(-1, 1)
     nx, ny = x + rx, y + ry
     if (rx * rx) + (ry * ry) == 0:
-        rx = randrange(-1, 1, 2)
-        ry = randrange(-1, 1, 2)
+        rx = randint(-1, 1)
+        if not rx: ry = randrange(-1, 1, 2)
+        else: ry = randint(-1, 1)
         nx, ny = x + rx, y + ry
     if nx < 1:
         nx = x + 1
@@ -38,6 +39,7 @@ def rcords(x, y):
     if ny > HEIGHT // 10 - 2:
         ny = y - 1
     return rx, ry, nx, ny
+
 
 
 def rmove(markedx, markedy, list_xy):
