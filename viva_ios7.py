@@ -16,44 +16,29 @@ TICK = 0.05  # ВРЕМЯ ОБНОВЛЕНИЯ ПОЛЯ (В СЕКУНДАХ)
 COLORS = ["-", "1", "2", "3"]
 
 
-def check(x, y, list_xy):
-    col = 0
-    try:
-        for i in range(-1, 1):
-            for j in range(-1, 1):
-                if i != 0 and j != 0:
-                    if list_xy[x + i][y + j] != 0:
-                        col += 1
-        return col
-    except IndexError:
-        print("Впоймал IndexError")
-
-
 def rcords(x, y):
     rx, ry = randint(-1, 1), randint(-1, 1)
     nx, ny = x + rx, y + ry
-    if nx < 0:
-        nx = WIDTH // 10 - 1
-    if nx > WIDTH // 10 - 1:
-        nx = 0
-    if ny < 0:
-        ny = HEIGHT // 10 - 1
-    if ny > HEIGHT // 10 - 1:
-        ny = 0
+    if (rx * rx) + (ry * ry) == 0:
+        rx = randrange(-1, 1, 2)
+        ry = randrange(-1, 1, 2)
+        nx, ny = x + rx, y + ry
+    if nx < 1:
+        nx = x + 1
+    if nx > WIDTH // 10 - 2:
+        nx = x - 1
+    if ny < 1:
+        ny = y + 1
+    if ny > HEIGHT // 10 - 2:
+        ny = y - 1
     return rx, ry, nx, ny
 
 
 def rmove(markedx, markedy, list_xy):
     for i in range(0, len(markedx)):
         x, y = markedx[i], markedy[i]
-        if check(x, y, list_xy) >= 8: continue
         rx, ry, nx, ny = rcords(x, y)
-        try:
-            while list_xy[nx][ny] != 0:
-                rx, ry, nx, ny = rcords(x, y)
-        except IndexError:
-            print("Впоймал IndexError")
-        if nx < len(list_xy[x]) - 1 or ny < len(list_xy[x]) - 1:
+        if list_xy[nx][ny] == 0:
             list_xy[nx][ny] = list_xy[x][y]
             if nx != x or ny != y: list_xy[x][y] = 0
     return list_xy
